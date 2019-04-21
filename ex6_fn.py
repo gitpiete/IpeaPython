@@ -7,7 +7,8 @@ __author__ = 'Pekka'
 
 
 def numero_letras(umastring):
-    numeroletr = 0
+    # função conta o número de letras no string
+    numeroletr = 0  # inicializa o contador
     for i in umastring:
         if i.lower() in 'abcedfghijklmnopqrstuvwxyz':
             numeroletr += 1
@@ -15,4 +16,5 @@ def numero_letras(umastring):
 
 
 if __name__ == '__main__':
-    print(numero_letras('ASDFJA89080DAF'))
+    astring = 'ASDFJA89080DAF'
+    print('Número de letras na string', astring, 'é', numero_letras(astring))

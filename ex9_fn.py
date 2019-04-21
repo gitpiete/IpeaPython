@@ -13,9 +13,11 @@ def eleva_vogal(dicio):
             dicio.update({k:dicio[k]**2})
         else:
             dicio.update({k:0})
+    return dicio
 
 
 if __name__ == '__main__':
     d = {'a':2, 'b':3, 'c':4, 'd':5, 'e':6}
+    print('Dicionário original:', d)
     eleva_vogal(d)
-    print(d)
+    print('Dicionário alterado:', d)

@@ -7,6 +7,7 @@ __author__ = 'Pekka'
 
 
 def piramide(fim):
+    # este função imprime o 'piramide' de lado
     for i in range(1, fim + 1):
         for j in range(1, i + 1):
             print('* ', end='')
@@ -19,5 +20,5 @@ def piramide(fim):
         
 
 if __name__ == '__main__':
-    fim = 13
-    piramide(fim)
+    altura = int(input('Dá a altura do piramide: '))
+    piramide(altura)

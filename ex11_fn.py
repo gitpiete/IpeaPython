@@ -16,4 +16,4 @@ def histograma(lista):
 
 if __name__ == '__main__':
     list_a = [0, 0, 1, 1, 1, 2, 5]
-    print(histograma(list_a))
+    print('Histograma de lista', list_a, 'é', histograma(list_a))

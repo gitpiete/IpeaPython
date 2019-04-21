@@ -7,6 +7,7 @@ __author__ = 'Pekka'
 
 
 def vogal_ou_consoante(letra):
+    # função que recebe uma letra e determina se é vogal ou consoante
     if letra.lower() in 'aeiou':
         print(letra + ' é vogal')
     else:

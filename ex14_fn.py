@@ -18,4 +18,6 @@ def alfabetocheck(paragrafo):
 
 if __name__ == '__main__':
     paragraph = 'Pack my box with five dozen liquor jugs'
-    print('O texto', paragraph, 'tem todas as letras do alfabeto: ', alfabetocheck(paragraph))
+    print('O texto "', paragraph, '" tem todas as letras do alfabeto: ', alfabetocheck(paragraph), sep='')
+    paragraph2 = 'Pack my box with five dozen liquor jug'
+    print('O texto "', paragraph2, '" tem todas as letras do alfabeto: ', alfabetocheck(paragraph2), sep='')

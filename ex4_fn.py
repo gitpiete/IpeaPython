@@ -9,7 +9,8 @@ __author__ = 'Pekka'
 
 
 def print_numeros():
-    for i in range(1, 51):
+    # função correndo de 1 a 50
+    for i in range(1, 51):  # para correr até 50, tem que adicionar 1
         if i % 3 == 0 and i % 5 == 0:
             print('OopsDoo')
         elif i % 3 == 0:

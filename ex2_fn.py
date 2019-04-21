@@ -16,15 +16,16 @@ __author__ = 'Pekka'
 
 
 def piramide():
-    fim = 5
+    # este função imprime o 'piramide' de lado
+    fim = 5  # altura do piramide
 
-    for i in range(1, fim+1):
-        for j in range(1, i+1):
+    for i in range(1, fim+1):  # primeira metade
+        for j in range(1, i+1):  # inclui o 'pico'
             print('* ', end='')
         print('')
 
     for k in reversed(range(1, fim+1)):
-        for l in range(1, k):
+        for l in range(1, k):  # na volta não precisa incluir o pico
             print('* ', end='')
         print('')
 
