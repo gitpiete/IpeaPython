@@ -1,4 +1,5 @@
 """ exercicio 2: agentes e interações
+    Arquivo de criação de classes básicas
     """
 
 import random
@@ -18,10 +19,11 @@ class Account:
         else:
             return True
 
-    def pay(self, amount):
+    def pay(self, amount): # Esta função só é chamada se check_balance == True
         self.balance -= amount
         return amount
 
+    # ESTA FOI SUBSTITUÍDA POR 'PAY' E 'CHECK_BALANCE'
     # def withdraw(self, value):
     #     if self.balance < value:
     #         print('Saldo insuficiente')
@@ -40,7 +42,7 @@ class Shop:
 #        self.cost = self.fun / self.capacity
         self.cost = random.randrange(20, 30)
 
-    def visit(self):
+    def visit(self): # só será chamada se check_capacity == True
         self.capacity -= 1
 
     def sell(self, amount):
