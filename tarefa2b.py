@@ -1,5 +1,3 @@
-
-
 from tarefa2 import Agent, Shop
 import random
 
@@ -14,7 +12,7 @@ def creation(f, n, i):
 
 def resources(a):
     for i in range(len(a)):
-        a[i].account.deposit(random.randrange(10, 50))
+        a[i].account.deposit(random.randrange(20, 30))
 
 
 def interaction(agents, shops):
@@ -37,14 +35,16 @@ def averages(a, s):
     avg_balance = sum(i.account.balance for x in [a, s] for i in x) / (len(a) + len(s))
 
 def main(n1, n2):
-# cria
-# cria
-# mistura (shuffle)
-# mistura
-# salários
-# interact
+    # cria
+    # cria
+    # mistura (shuffle)
+    # mistura
+    # salários
+    # interact
     list_agents = creation(Agent, n1, 1)
     list_shops = creation(Shop, n2, n1 + 1)
+    random.shuffle(list_agents)
+    random.shuffle(list_shops)
     resources(list_agents)
     interaction(list_agents, list_shops)
 

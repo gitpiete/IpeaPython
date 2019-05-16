@@ -32,13 +32,13 @@ class Account:
 
 
 class Shop:
-    def __init__(self, ids, i):
+    def __init__(self, i, ids):
         self.id = ids
         self.account = Account(i)
-        self.fun = random.randrange(1, 10)
-        self.capacity = random.randrange(1, 10)
+        self.fun = random.randrange(100, 105)
+        self.capacity = random.randrange(4, 8)
 #        self.cost = self.fun / self.capacity
-        self.cost = random.randrange(1, 10)
+        self.cost = random.randrange(20, 30)
 
     def visit(self):
         self.capacity -= 1
@@ -58,7 +58,7 @@ class Shop:
 
 
 class Agent:
-    def __init__(self, idag, i):
+    def __init__(self, i, idag):
         self.fun = 0
         self.id = idag
         self.account = Account(i)
