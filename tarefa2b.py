@@ -2,6 +2,8 @@
     Arquivo de funções de inicialização e interação
     """
 
+__author__ = 'Pekka'
+
 
 from tarefa2 import Agent, Shop
 import random

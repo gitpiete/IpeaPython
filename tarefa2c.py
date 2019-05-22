@@ -2,6 +2,9 @@
     Arquivo de cálculo de médias
     """
 
+__author__ = 'Pekka'
+
+
 from tarefa2b import main
 import os
 import matplotlib.pyplot as plt

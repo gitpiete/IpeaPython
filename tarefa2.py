@@ -2,6 +2,9 @@
     Arquivo de criação de classes básicas
     """
 
+__author__ = 'Pekka'
+
+
 import random
 
 
