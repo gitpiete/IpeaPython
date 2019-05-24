@@ -2,6 +2,9 @@
     Arquivo do modelo
     """
 
+__author__ = 'Pekka'
+
+
 from project1 import Airline, Passenger, Flight
 import random
 import pandas as pd
@@ -69,21 +72,27 @@ def update_prices(airline):
     pass
 
 
+def check_trip(passenger):
+    pass
+    return False
 
-def main(n1, n2, names):
-    # cria
-    # cria
-    # mistura (shuffle)
-    # mistura
-    # salários
-    # interact
-    list_airlines = create_agents(Airline, n2, 1, names)
-    list_passengers = create_agents(Passenger, n1, n2 + 1)
-    #random.shuffle(list_agents)
-    #random.shuffle(list_shops)
-    #resources(list_agents)
-    #interaction(list_agents, list_shops)
-    return list_passengers, list_airlines
+
+
+
+# def main(n1, n2, names):
+#     # cria
+#     # cria
+#     # mistura (shuffle)
+#     # mistura
+#     # salários
+#     # interact
+#     list_airlines = create_agents(Airline, n2, 1, names)
+#     list_passengers = create_agents(Passenger, n1, n2 + 1)
+#     #random.shuffle(list_agents)
+#     #random.shuffle(list_shops)
+#     #resources(list_agents)
+#     #interaction(list_agents, list_shops)
+#     return list_passengers, list_airlines
 
 
 if __name__ == '__main__':
@@ -109,10 +118,14 @@ if __name__ == '__main__':
 
 #    passengers, airlines = main(n_passengers, n_airlines, airline_names)
 #    print(airlines)
-    print(i.name for i in list_airlines)
+    # print(i.name for i in list_airlines)
 
     for d in daylist:
         print('Day', d)
         for a in list_airlines:
             update_prices(a)
+
+        for p in list_passengers:
+            if not check_trip(p):
+                p.buy_ticket(flights, list_airlines)
 

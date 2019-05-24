@@ -2,6 +2,9 @@
     Arquivo de criação de classes básicas
     """
 
+__author__ = 'Pekka'
+
+
 import random
 
 
@@ -61,8 +64,8 @@ class Airline:
 #        self.cost = self.fun / self.capacity
         self.cost = random.randrange(20, 30)
 
-    def visit(self):  # só será chamada se check_capacity == True
-        self.capacity -= 1
+    # def visit(self):  # só será chamada se check_capacity == True
+    #     self.capacity -= 1
 
     def sell(self, amount):
         pass
@@ -78,8 +81,8 @@ class Airline:
         else:
             return True
 
-    def __str__(self):
-        print(self.name)
+    #def __str__(self):
+     #   print(self.name)
 
 
 class Passenger:
@@ -90,9 +93,28 @@ class Passenger:
         self.local = None
         self.have_ticket = False
         self.destination = None
+        self.travel_day = 1  # currently an integer, later possibly a date
 
-    def buy_ticket(self, price):
-        pass
+    def buy_ticket(self, flights, airlines):
+        list_options = []
+        minprice = 1000000
+        minflight = None
+        for f in flights:
+            if self.travel_day == f.day:
+                list_options.append(f)
+                newprice = min(f.seat_prices.keys())
+                if  newprice < minprice:
+                    minprice = newprice
+                    minflight = f
+        if self.check_funds(minflight):
+            #s1.account.deposit(a[i].account.pay(s1.cost))
+            for a in airlines:
+                print(a.name)
+                if a.name == minflight.company:
+                    print(a.name)
+                    break
+            a.account.deposit(self.account.pay(minprice))
+
 
     def travel(self, destination):
         pass
@@ -100,8 +122,8 @@ class Passenger:
     def get_utility(self, amount):
         self.utility += amount
 
-    def check_funds(self, shop):
-        if self.account.balance > shop.cost:
+    def check_funds(self, flight):
+        if self.account.balance > min(flight.seat_prices.keys()):
             return True
         else:
             return False

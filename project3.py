@@ -2,6 +2,8 @@
     Arquivo dos testes
     """
 
+__author__ = 'Pekka'
+
 
 from project2 import main
 import os
