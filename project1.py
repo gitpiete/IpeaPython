@@ -47,8 +47,20 @@ class Flight:
     def occupy_seat(self, seat):
         pass
 
-    def check_capacity(self):
-        pass
+    def check_capacity(self, price):
+        if self.seat_prices[price] > 0:
+            return True
+        elif self.seat_prices[price] == 0:
+            try:
+                del self.seat_prices[price]
+                print('Company {} has no more seats'.format(self.company))
+            except KeyError:
+                print('Strange keyerror')
+                pass
+            return False
+        else:
+            print("Strangely there has been overbooking")
+            return False
 
     def update_prices(self):
         pass
@@ -93,27 +105,40 @@ class Passenger:
         self.local = None
         self.have_ticket = False
         self.destination = None
-        self.travel_day = 1  # currently an integer, later possibly a date
+        self.travel_day = 2  # currently an integer, later possibly a date
 
-    def buy_ticket(self, flights, airlines):
+    def buy_ticket(self, flights, airlines, shop_day):
         list_options = []
         minprice = 1000000
         minflight = None
+        random.shuffle(flights)
         for f in flights:
-            if self.travel_day == f.day:
+            #print(f.company)
+            if self.travel_day == f.day and len(f.seat_prices.keys()) > 0 and int(shop_day) < f.day:
                 list_options.append(f)
                 newprice = min(f.seat_prices.keys())
-                if  newprice < minprice:
+                if newprice < minprice:
                     minprice = newprice
                     minflight = f
-        if self.check_funds(minflight):
+                    #print(minflight)
+            elif len(f.seat_prices.keys()) == 0:
+                print('No more seats for the day on {}'.format(f.company))
+        if minflight != None and self.check_funds(minflight):
             #s1.account.deposit(a[i].account.pay(s1.cost))
             for a in airlines:
-                print(a.name)
+                #print(a.name)
                 if a.name == minflight.company:
-                    print(a.name)
+                    # print(a.name)
                     break
-            a.account.deposit(self.account.pay(minprice))
+            if minflight.check_capacity(minprice):
+                a.account.deposit(self.account.pay(minprice))
+                minflight.seat_prices[minprice] -= 1
+                print('Ticket was sold for {} on {}. Seats remaining: {}'.format(minprice, minflight.company, minflight.seat_prices[minprice]))
+                minflight.check_capacity(minprice)
+                self.have_ticket = True
+        elif minflight == None:
+            print('No more seats for the day on any company.')
+
 
 
     def travel(self, destination):

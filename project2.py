@@ -73,8 +73,7 @@ def update_prices(airline):
 
 
 def check_trip(passenger):
-    pass
-    return False
+    return passenger.have_ticket
 
 
 
@@ -96,7 +95,7 @@ def check_trip(passenger):
 
 
 if __name__ == '__main__':
-    n_passengers = 13
+    n_passengers = 500
     n_airlines = 4
     airline_names = ['ONE', 'AZU', 'GLO', 'TAM']
     locations = ['DF', 'SP']
@@ -111,21 +110,48 @@ if __name__ == '__main__':
     # initial flight values
     # company, day, price, seats
     # Avianca
-    daylist = [str(i) for i in range(1, 8)]
+    daylist = [str(i) for i in range(0, 8)]
+#    daylist = [str(i) for i in range(1, 3)]
+    for p in list_passengers:
+        p.travel_day = random.randint(1,7)
     flighttable = pd.read_csv('flights2.csv', sep=';', index_col=False)
     flights = init_flights(flighttable)
+    flight_archive = {} # create archive of flights to enable comparison of the flight stock
     resources(list_passengers, income)
 
 #    passengers, airlines = main(n_passengers, n_airlines, airline_names)
 #    print(airlines)
     # print(i.name for i in list_airlines)
 
+    pax_counter = 1
+
     for d in daylist:
         print('Day', d)
+        print('======')
+        random.shuffle(list_airlines)
         for a in list_airlines:
             update_prices(a)
-
+        dayseatcounter = 0
+        flight_archive[int(d)] = flights.copy()
+        for n in flights:
+            if n.day == int(d):
+                dayseatcounter += sum(n.seat_prices.values())
+        print('Flights for day: {}'.format(dayseatcounter))
+        random.shuffle(list_passengers)
+        #random.shuffle(flights)
+#        pax_counter = 1
         for p in list_passengers:
             if not check_trip(p):
-                p.buy_ticket(flights, list_airlines)
+                print('Passenger {} of {}'.format(pax_counter, len(list_passengers)))
+                p.buy_ticket(flights, list_airlines, d)
+                pax_counter += 1
+            else:
+                print('Already has a ticket')
+            # print('Passenger {} of {}'.format(pax_counter, len(list_passengers)))
+            # print('-----------------------')
+            # if not check_trip(p):
+            #     p.buy_ticket(flights, list_airlines, d)
+            # else:
+            #     print('Already has a ticket')
+            # pax_counter += 1
 
