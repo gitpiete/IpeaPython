@@ -95,7 +95,7 @@ def check_trip(passenger):
 
 
 if __name__ == '__main__':
-    n_passengers = 500
+    n_passengers = 5000
     n_airlines = 4
     airline_names = ['ONE', 'AZU', 'GLO', 'TAM']
     locations = ['DF', 'SP']
@@ -111,6 +111,7 @@ if __name__ == '__main__':
     # company, day, price, seats
     # Avianca
     daylist = [str(i) for i in range(0, 8)]
+    daily_sales = 600
 #    daylist = [str(i) for i in range(1, 3)]
     for p in list_passengers:
         p.travel_day = random.randint(1,7)
@@ -123,7 +124,7 @@ if __name__ == '__main__':
 #    print(airlines)
     # print(i.name for i in list_airlines)
 
-    pax_counter = 1
+#    pax_counter = 1
 
     for d in daylist:
         print('Day', d)
@@ -137,16 +138,20 @@ if __name__ == '__main__':
             if n.day == int(d):
                 dayseatcounter += sum(n.seat_prices.values())
         print('Flights for day: {}'.format(dayseatcounter))
-        random.shuffle(list_passengers)
+#        random.shuffle(list_passengers)
+        sampled_list_passengers = random.sample(list_passengers, daily_sales)
         #random.shuffle(flights)
-#        pax_counter = 1
-        for p in list_passengers:
+        pax_counter = 1
+#        for p in list_passengers:
+        for p in sampled_list_passengers:
             if not check_trip(p):
-                print('Passenger {} of {}'.format(pax_counter, len(list_passengers)))
+#                print('Passenger {} of {}'.format(pax_counter, len(list_passengers)))
+                print('Passenger {} of {}'.format(pax_counter, len(sampled_list_passengers)))
                 p.buy_ticket(flights, list_airlines, d)
-                pax_counter += 1
+#                pax_counter += 1
             else:
                 print('Already has a ticket')
+            pax_counter += 1
             # print('Passenger {} of {}'.format(pax_counter, len(list_passengers)))
             # print('-----------------------')
             # if not check_trip(p):

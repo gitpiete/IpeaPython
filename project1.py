@@ -133,7 +133,7 @@ class Passenger:
             if minflight.check_capacity(minprice):
                 a.account.deposit(self.account.pay(minprice))
                 minflight.seat_prices[minprice] -= 1
-                print('Ticket was sold for {} on {}. Seats remaining: {}'.format(minprice, minflight.company, minflight.seat_prices[minprice]))
+                print('Ticket was sold for {} on {} for day {}. Seats remaining: {}'.format(minprice, minflight.company, minflight.day, minflight.seat_prices[minprice]))
                 minflight.check_capacity(minprice)
                 self.have_ticket = True
         elif minflight == None:
