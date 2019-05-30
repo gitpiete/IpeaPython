@@ -28,9 +28,9 @@ class Account:
 
 
 class Flight:
-    def __init__(self, idf, company="", day=0, price=0, seats=0, location=None, origin=None, destination=None):
+    def __init__(self, idf, company="", day=0, price=0, seats=0, origin=None, destination=None):
         #self.n_seats = seats
-        self.location = location
+        #self.location = location
         self.origin = origin
         self.destination = destination
         self.company = company
@@ -105,7 +105,7 @@ class Passenger:
         self.local = None
         self.have_ticket = False
         self.destination = None
-        self.travel_day = 2  # currently an integer, later possibly a date
+        self.travel_day = 99  # currently an integer, later possibly a date
 
     def buy_ticket(self, flights, airlines, shop_day):
         list_options = []

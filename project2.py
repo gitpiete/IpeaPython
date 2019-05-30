@@ -31,17 +31,21 @@ def init_flights(flighttab, airlinelist=None):
         day = flighttab.loc[j][1]
         price = flighttab.loc[j][2]
         seats = flighttab.loc[j][3]
+        origin = flighttab.loc[j][4]
+        destination = flighttab.loc[j][5]
+
         if flightlist != []:
             added = False
             for i in flightlist:
-                if i.company == name and i.day == day:
+                if i.company == name and i.day == day and i.origin == origin and i.destination == destination:
                     i.add_price(price, seats)
                     added = True
                     break
             if added == False:
-                flightlist.append(Flight(k, name, day, price, seats))
+                flightlist.append(Flight(k, name, day, price, seats, origin, destination))
+
         elif len(flightlist) == 0:
-            flightlist.append(Flight(k, name, day, price, seats))
+            flightlist.append(Flight(k, name, day, price, seats, origin, destination))
         #flightlist.append(Flight(k, name, day, price, seats))  # original that didn't join prices
         k += 1
     return flightlist
@@ -115,7 +119,10 @@ if __name__ == '__main__':
 #    daylist = [str(i) for i in range(1, 3)]
     for p in list_passengers:
         p.travel_day = random.randint(1,7)
-    flighttable = pd.read_csv('flights2.csv', sep=';', index_col=False)
+        randomlocalindex = random.randint(0,1)
+        p.local = locations[randomlocalindex]
+        p.destination = locations[1-randomlocalindex]
+    flighttable = pd.read_csv('flights3.csv', sep=';', index_col=False)
     flights = init_flights(flighttable)
     flight_archive = {} # create archive of flights to enable comparison of the flight stock
     resources(list_passengers, income)
@@ -151,6 +158,12 @@ if __name__ == '__main__':
 #                pax_counter += 1
             else:
                 print('Already has a ticket')
+                if int(d) == p.travel_day:
+                    print('Travelling today from {} to {}'.format(p.local, p.destination))
+                    newlocal = p.destination
+                    p.destination = p.local
+                    p.local = newlocal
+
             pax_counter += 1
             # print('Passenger {} of {}'.format(pax_counter, len(list_passengers)))
             # print('-----------------------')
