@@ -102,6 +102,7 @@ def check_trip(passenger):
 
 
 if __name__ == '__main__':
+    multiplier = 1000
     f = open('flights_'+strftime("%Y-%m-%d_%H%M%S", localtime())+'.txt', 'w')
     # from actual 2018 sales data
     demand = pd.DataFrame({'pax': {0: 369829, 1: 107078, 2: 47366, 3: 31385, 4: 20517, 5: 13535, 6: 8377, 7: 7356,
@@ -144,14 +145,14 @@ if __name__ == '__main__':
     cap_glo = round(pax_glo_2018 / lf_glo)
     cap_tam = round(pax_tam_2018 / lf_tam)
     caplist = [cap_one, cap_azu, cap_glo, cap_tam]
-    caplist = [i//1000 for i in caplist]  # to compensate the division of passengers below
+    caplist = [i//multiplier for i in caplist]  # to compensate the division of passengers below
 
     df_habitantes2018 = 2974703
 
     prob_pax = totalpax_2018 / df_habitantes2018
     prob_pax /= load_factor2018  # to make possible to fill the flights
 
-    n_passengers = totalpax_2018//1000  # to speed up the simulation
+    n_passengers = df_habitantes2018 // multiplier
     n_airlines = 4
     airline_names = ['ONE', 'AZU', 'GLO', 'TAM']
     locations = ['DF', 'SP']
@@ -169,7 +170,7 @@ if __name__ == '__main__':
     # company, day, price, seats
     #daylist = [str(i) for i in range(0, 8)]
     daylist = [1] # we are temporarily inspecting the whole year
-    daily_sales = 100
+    #daily_sales = 100
 #    daylist = [str(i) for i in range(1, 3)]
     for p in list_passengers:
 #        p.travel_day = random.randint(1,7)
@@ -221,7 +222,13 @@ if __name__ == '__main__':
 #                print('Passenger {} of {}'.format(pax_counter, len(list_passengers)))
                 #print('Passenger {} of {}'.format(pax_counter, len(sampled_list_passengers)))
                 #p.buy_ticket(flights, list_airlines, d)
-                p.buy_ticket(flights, list_airlines, d-1)
+                seller = p.buy_ticket(flights, list_airlines, d-1)
+                if seller != None:
+                    for dl in range(len(demandlist[0])):
+                        if demandlist[airline_names.index(seller)].loc[dl, 'pax'] > 0:
+                            demandlist[airline_names.index(seller)].loc[dl, 'pax'] -= min(demandlist[airline_names.index(seller)].loc[dl, 'pax'], 0.25*multiplier)
+                            break
+
 #                pax_counter += 1
             else:
                 print('not a passenger candidate')

@@ -133,13 +133,14 @@ class Passenger:
                 self.have_ticket = True
                 a.sold_tickets += 1
                 a.capacity -= 1
+                return a.name
             else:
                 print('Ticket was NOT sold!')
         elif minflight == None:
             print('No more seats for the day on any company.')
 
     def check_demand(self):
-        return self.maxprice * (1 + 0.5 * random.random())
+        return self.maxprice * (1 + abs(random.normalvariate(0,1)))
 
     def travel(self, destination):
         pass

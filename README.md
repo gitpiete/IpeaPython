@@ -10,11 +10,12 @@ Executa tarefa2c.py para rodar o modelo.
 Modelo ABM para transporte aéreo estadual brasileiro.
 
 Estado atual: Viagens aéreas DF-SP sem atualização do preços pela demanda. 
-A Gol sempre esgota sua capacidade, vendendo as passagens mais baratas
+A Gol sempre esgota sua capacidade, vendendo as passagens mais baratas.
 
 Vários itens do modelo foram reprogramados, portanto há muito código comentado para futuras expansões. 
 Para o modelo rodar mais rápido, o número de passageiros reais foi dividido por mil, 
 tendo que multiplicar os resultados por mil.
+
 ###Execução:
 Executar arquivo "project2.py". (python project2.py)
  
