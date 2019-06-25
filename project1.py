@@ -71,30 +71,17 @@ class Airline:
         self.name = name
         self.id = ids
         self.account = Account(idacc)
-        # self.fun = random.randrange(100, 105)
-        self.capacity = random.randrange(4, 8)
-#        self.cost = self.fun / self.capacity
-        self.cost = random.randrange(20, 30)
-
-    # def visit(self):  # só será chamada se check_capacity == True
-    #     self.capacity -= 1
+        self.sold_tickets = 0
+        self.capacity = 0
 
     def sell(self, amount):
         pass
-#        if self.fun >= amount:
-#            self.fun -= amount
-#        return amount
-#        else:
-#            return False
 
     def check_capacity(self):
         if self.capacity == 0:
             return False
         else:
             return True
-
-    #def __str__(self):
-     #   print(self.name)
 
 
 class Passenger:
@@ -106,6 +93,7 @@ class Passenger:
         self.have_ticket = False
         self.destination = None
         self.travel_day = 99  # currently an integer, later possibly a date
+        self.maxprice = None
 
     def buy_ticket(self, flights, airlines, shop_day):
         list_options = []
@@ -114,6 +102,10 @@ class Passenger:
         random.shuffle(flights)
         for f in flights:
             #print(f.company)
+            # seguintes condições têm que ser cumpridas:
+            # 1. data programada de viagem é data do voo
+            # 2. há voos
+            # 3. dia de compra é antes do dia de voo
             if self.travel_day == f.day and len(f.seat_prices.keys()) > 0 and int(shop_day) < f.day:
                 list_options.append(f)
                 newprice = min(f.seat_prices.keys())
@@ -123,7 +115,10 @@ class Passenger:
                     #print(minflight)
             elif len(f.seat_prices.keys()) == 0:
                 print('No more seats for the day on {}'.format(f.company))
-        if minflight != None and self.check_funds(minflight):
+
+#        if minflight != None and self.check_funds(minflight):
+        # se houver voo que couber no orçamento
+        if (minflight != None) and (self.check_demand() >= minprice):
             #s1.account.deposit(a[i].account.pay(s1.cost))
             for a in airlines:
                 #print(a.name)
@@ -136,10 +131,15 @@ class Passenger:
                 print('Ticket was sold for {} on {} for day {}. Seats remaining: {}'.format(minprice, minflight.company, minflight.day, minflight.seat_prices[minprice]))
                 minflight.check_capacity(minprice)
                 self.have_ticket = True
+                a.sold_tickets += 1
+                a.capacity -= 1
+            else:
+                print('Ticket was NOT sold!')
         elif minflight == None:
             print('No more seats for the day on any company.')
 
-
+    def check_demand(self):
+        return self.maxprice * (1 + 0.5 * random.random())
 
     def travel(self, destination):
         pass
@@ -161,16 +161,17 @@ class Passenger:
 
 
 if __name__ == '__main__':
-    a1 = Passenger(0, 0)
-    s1 = Airline(1, 1)
-    # bb = Account('023')
-    # print(bb.balance)
-    # print(a1.account.balance)
-    # print(s1.account.balance)
-    # print(a1.account.id)
-    a1.account.deposit(10)
-    s1.account.deposit(s1.cost)
-    a1.account.pay(s1.cost)
-    # print('O custo da loja {} é R${:.2f} e a fun é {}.'.format(s1.id, s1.cost, s1.utility))
-    print('O balanço corrente da loja {} é R${:.2f}'.format(s1.id, s1.account.balance))
-    print('O agente tem R${:.2f} em caixa'.format(a1.account.balance))
+    # a1 = Passenger(0, 0)
+    # s1 = Airline(1, 1)
+    # # bb = Account('023')
+    # # print(bb.balance)
+    # # print(a1.account.balance)
+    # # print(s1.account.balance)
+    # # print(a1.account.id)
+    # a1.account.deposit(10)
+    # s1.account.deposit(s1.cost)
+    # a1.account.pay(s1.cost)
+    # # print('O custo da loja {} é R${:.2f} e a fun é {}.'.format(s1.id, s1.cost, s1.utility))
+    # print('O balanço corrente da loja {} é R${:.2f}'.format(s1.id, s1.account.balance))
+    # print('O agente tem R${:.2f} em caixa'.format(a1.account.balance))
+    pass
